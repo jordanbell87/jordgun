@@ -595,17 +595,37 @@
 
 </div>
 
-<!-- THREE.JS -->
+<!-- THREE.JS & FIREBASE -->
 <script type="importmap">
 {
   "imports": {
     "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+    "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/",
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+    "firebase/analytics": "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"
   }
 }
 </script>
 <script type="module">
 import * as THREE from 'three';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBj3Fxvs-i2l5XUfMOD0CZrmdBAvxPDBAs",
+  authDomain: "heir-7fec9.firebaseapp.com",
+  projectId: "heir-7fec9",
+  storageBucket: "heir-7fec9.firebasestorage.app",
+  messagingSenderId: "628663826158",
+  appId: "1:628663826158:web:5e2efcd82c3622322be5ff",
+  measurementId: "G-9BY6HWG5T4"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 
 // ─── TICKER ───────────────────────────────────────────────
 const tickerItems = [
