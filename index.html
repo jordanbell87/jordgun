@@ -208,8 +208,16 @@
       border: 1px solid var(--border);
       padding: 28px 24px 24px;
       backdrop-filter: blur(8px);
-      transition: border-color 0.3s;
-      pointer-events: all; cursor: pointer;
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out, border-color 0.3s;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(40px);
+      pointer-events: none;
+    }
+    .product-card.reveal {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
     }
     .product-card:hover { border-color: rgba(192,57,43,0.4); }
     .product-num {
@@ -1210,6 +1218,19 @@ const counterEnd = new THREE.Vector3(0.3, 0.15, 1.0);
 // DOM elements
 const muzzleFlashEl = document.getElementById('muzzle-flash');
 const impactFlashEl = document.getElementById('impact-flash');
+const productCards = document.querySelectorAll('.product-card');
+
+// Reveal cards sequentially
+let cardsRevealed = false;
+function revealCards() {
+  if (cardsRevealed) return;
+  cardsRevealed = true;
+  productCards.forEach((card, i) => {
+    setTimeout(() => {
+      card.classList.add('reveal');
+    }, i * 150);
+  });
+}
 
 // Collision scroll threshold (percentage)
 const COLLISION_SCROLL = 0.30; // 30% of page
@@ -1379,6 +1400,9 @@ function triggerExplosion() {
   // Camera shake
   document.getElementById('canvas-wrapper').classList.add('shake');
   setTimeout(() => document.getElementById('canvas-wrapper').classList.remove('shake'), 400);
+
+  // Reveal product grid after explosion
+  setTimeout(revealCards, 800);
 }
 
 // ═══════════════════════════════════════════════════════════
